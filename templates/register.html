@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport"/>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<title>Register</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
+<script src="/static/js/register" type="text/javascript"></script>
+</head>
+<body>
+<h3>Регистрация</h3>
+<form action="" id="register_form" method="post">
+<input id="bn1" name="login" oninput="checkIfWrongSymbols(this)" placeholder="Имя пользователя" type="text"/><br/>
+<input name="password" oninput="checkIfWrongSymbols(this)" placeholder="Пароль" type="password"/><br/>
+<input name="password2" oninput="checkIfWrongSymbols(this)" placeholder="Пароль ещё раз" type="password"/>
+<input id="btn" type="button" value="Отправить"/>
+</form>
+<div id="result_form"></div>
+</body>
+</html>
