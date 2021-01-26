@@ -85,6 +85,7 @@ class JSManagerDB(ManagerDB):
         cursor.execute("""SELECT * FROM js""")
         result = cursor.fetchall()
         cursor.close()
+
         return result
 
     def select_url(self, url):
@@ -94,6 +95,7 @@ class JSManagerDB(ManagerDB):
         """, (url, ))
         result = cursor.fetchall()
         cursor.close()
+
         return result
 
     def insert(self,url,server_path):
@@ -109,3 +111,75 @@ class JSManagerDB(ManagerDB):
 
         self.connection.commit()
         cursor.close()
+
+
+class AuthManagerDB(ManagerDB):
+    def __init__(self):
+        super().__init__()
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                   CREATE TABLE IF NOT EXISTS auth(
+                       login text PRIMARY KEY NOT NULL,
+                       password text NOT NULL,
+                       token text NOT NULL
+                   )
+                   """)
+        self.connection.commit()
+        cursor.close()
+
+    def is_user_exists(self,login,password):
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                SELECT * FROM auth WHERE login=%s and password=%s
+                """, (login,password, ))
+
+        result = cursor.fetchall()
+        cursor.close()
+        if result != []:
+            return True
+        else:
+            return False
+
+    def select_token(self,login,password):
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                SELECT * FROM auth WHERE login=%s and password=%s
+                """, (login,password, ))
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def select_login(self, login):
+        cursor = self.connection.cursor()
+        cursor.execute("""
+        SELECT * FROM auth WHERE login=%s 
+        """, (login, ))
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def insert(self,login,password, token):
+        cursor = self.connection.cursor()
+
+        if self.select_login(login) != []:
+            return "failed"
+
+        cursor.execute("""
+            INSERT INTO auth(login,password,token) VALUES (%s,%s,%s)
+        """, (login,password,token, ))
+
+        self.connection.commit()
+        cursor.close()
+
+        return "success"
+
+    def get_by_token(self,token):
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                SELECT * FROM auth WHERE token=%s 
+                """, (token,))
+        result = cursor.fetchall()
+        cursor.close()
+        if result != []:
+            return result[0][0]
+

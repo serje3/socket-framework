@@ -33,8 +33,12 @@ def soup_parser_style(html_doc):
     database = StyleManagerDB()
 
     for i in range(len(links)):
+        if links[i]['href'].startswith('http'):
+            continue
         url = link_parser_style(links[i], database)
         if not url is None:
+            if url == '/static/js/'+links[i]['href'].split('.')[0]:
+                continue
             links[i]['href']=url
             links[i]['type']='text/css'
 
@@ -49,8 +53,14 @@ def soup_parser_js(html_doc):
     database = JSManagerDB()
 
     for i in range(len(scripts)):
+        if scripts[i].get('src','none')=='none':
+            continue
+        if scripts[i]['src'].startswith('http'):
+            continue
         url = script_parser_js(scripts[i],database)
         if not url is None:
+            if scripts[i]['src'] == '/static/js/'+scripts[i]['src'].split('.')[0]:
+                continue
             scripts[i]['src']=url
             scripts[i]['type']='text/javascript'
 

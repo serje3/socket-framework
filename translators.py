@@ -8,7 +8,7 @@ def styles_urls_to_global_urls():
 
     from wrap import render_css
     for url,server_path in urls:
-        view = lambda:render_css(server_path)
+        view = render_css(server_path)
         URLS[url]=view
 
 
@@ -18,5 +18,5 @@ def js_urls_to_global_urls():
 
     from wrap import render_js
     for url, server_path in urls:
-        view = lambda: render_js(server_path)
+        view = render_js(server_path)
         URLS[url] = view
