@@ -1,11 +1,13 @@
 import json
+import select
 import socket
 from translators import URLS, styles_urls_to_global_urls, js_urls_to_global_urls
 from settings import IP, PORT
 from urls import URLS_POST
 from wrap import wrap_request
 
-
+INPUTS=[]
+OUTPUTS=[]
 
 
 def before_accept():
@@ -77,24 +79,85 @@ def generate_response(request):
     return (headers + body).encode('utf-8')
 
 
+def handle_readables(readables, server_socket):
+
+    for resource in readables:
+
+        # Если событие исходит от серверного сокета, то мы получаем новое подключение
+        if resource is server_socket:
+            connection, client_address = resource.accept()
+            connection.setblocking(0)
+            INPUTS.append(connection)
+            print("new connection from {address}".format(address=client_address))
+
+        # Если событие исходит не от серверного сокета, но сработало прерывание на наполнение входного буффера
+        else:
+            data = ""
+            try:
+                data = resource.recv(1024)
+
+            # Если сокет был закрыт на другой стороне
+            except ConnectionResetError:
+                pass
+
+            if data:
+
+                # Вывод полученных данных на консоль
+                print("getting data: {data}".format(data=str(data)))
+
+                # Говорим о том, что мы будем еще и писать в данный сокет
+                if resource not in OUTPUTS:
+                    OUTPUTS.append(resource)
+
+            # Если данных нет, но событие сработало, то ОС нам отправляет флаг о полном прочтении ресурса и его закрытии
+            else:
+
+                # Очищаем данные о ресурсе и закрываем дескриптор
+                clear_resource(resource)
+
+
+
+
+def handle_writables(writables):
+    for resource in writables:
+        try:
+            resource.send(bytes('Hello from server!', encoding='UTF-8'))
+        except OSError:
+            clear_resource(resource)
+
+def clear_resource(resource):
+    if resource in OUTPUTS:
+        OUTPUTS.remove(resource)
+    if resource in INPUTS:
+        INPUTS.remove(resource)
+    resource.close()
+    print('closing connection ' + str(resource))
+
 def run():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket.setblocking(False)
     server_socket.bind((IP, PORT))
     server_socket.listen(10)
     before_accept()
     print(f"HOST: {IP}:{PORT}")
 
-    while True:
-        client_socket, addr = server_socket.accept()
-        request = client_socket.recv(1024)
+    # while True:
+    #     client_socket, addr = server_socket.accept()
+    #     request = client_socket.recv(1024)
+    #
+    #     # print(request.decode('utf-8'))
+    #
+    #     response = generate_response(request.decode('utf-8'))
+    #
+    #     client_socket.sendall(response)
+    #     client_socket.close()
 
-        # print(request.decode('utf-8'))
+    while INPUTS:
+        readables, writables, exceptional = select.select(INPUTS, OUTPUTS, INPUTS)
+        handle_readables(readables, server_socket)
+        handle_writables(writables)
 
-        response = generate_response(request.decode('utf-8'))
-
-        client_socket.sendall(response)
-        client_socket.close()
 
 
 if __name__ == '__main__':
