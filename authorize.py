@@ -65,7 +65,7 @@ def authorized(request):
     if request['method'] == 'POST':
         db = AuthManagerDB()
         user = db.get_by_token(request.get('token', ''))
-        if user == None:
+        if user is None:
             return json.dumps({
                 'status': "failed",
             })
@@ -77,9 +77,9 @@ def authorized(request):
 
 
 def logout(request):
-    if request['method']=='POST':
+    if request['method'] == 'POST':
         return json.dumps({
-            'status':'success',
+            'status': 'success',
             'Cookie': 'unauthorized'
         })
     # return HTTPRedirect('/')

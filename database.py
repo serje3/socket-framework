@@ -183,3 +183,55 @@ class AuthManagerDB(ManagerDB):
         if result != []:
             return result[0][0]
 
+
+
+class RoomsManagerDB(ManagerDB):
+    def __init__(self):
+        super().__init__()
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                           CREATE TABLE IF NOT EXISTS rooms(
+                               name text NOT NULL,
+                               owner text NOT NULL,
+                               id text PRIMARY KEY NOT NULL
+                           )
+                           """)
+        self.connection.commit()
+        cursor.close()
+
+    def insert(self,name,owner,id):
+        cursor = self.connection.cursor()
+
+        if self.select_id(id) != []:
+            return "failed"
+
+        cursor.execute("""
+            INSERT INTO rooms(name,owner,id) VALUES (%s,%s,%s)
+        """, (name,owner,id, ))
+
+        self.connection.commit()
+        cursor.close()
+
+        return "success"
+
+    def select_id(self, id):
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                SELECT * FROM rooms WHERE id=%s 
+                """, (id,))
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def get_rooms(self):
+        cursor = self.connection.cursor()
+        cursor.execute("""
+                        SELECT * FROM rooms
+                        """)
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def generate_id(self):
+        import secrets
+        return secrets.token_urlsafe(8)

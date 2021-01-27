@@ -1,8 +1,8 @@
 import os
-from database import StyleManagerDB, JSManagerDB
+from database import StyleManagerDB, JSManagerDB, AuthManagerDB
 from bs4 import BeautifulSoup
 from settings import STATIC_DIRS
-
+from errors import HTTP405
 
 def link_parser_style(link, database):
     url = None
@@ -70,6 +70,7 @@ def soup_parser_js(html_doc):
 
 def overwrite_html(filename,type):
     final_html=None
+
     with open('templates/' + filename, 'r', encoding='utf-8') as html:
         text = html.read()
         if type == 'css':
@@ -82,8 +83,13 @@ def overwrite_html(filename,type):
 
 def templates_parser():
     for filename in os.listdir('templates/'):
-        overwrite_html(filename,'css')
-        overwrite_html(filename,'js')
+        if os.path.isdir('templates/'+filename):
+            for file in os.listdir('templates/'+filename):
+                overwrite_html(filename+'/'+file, 'css')
+                overwrite_html(filename+'/'+file, 'js')
+        else:
+            overwrite_html(filename,'css')
+            overwrite_html(filename,'js')
 
 
 def ishtmlvalid(template: str):
@@ -102,3 +108,14 @@ def isjsvalid(template: str):
     file = template.split('.')
     if file[-1] == 'js':
         return True
+
+
+def login_required(view):
+    def wrapper(request):
+        db = AuthManagerDB()
+        user = db.get_by_token(request.get('token', ''))
+        if user is None:
+            return HTTP405()
+        else:
+            return view(request)
+    return wrapper

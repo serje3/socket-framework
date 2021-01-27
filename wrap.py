@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+from urllib.parse import unquote
 from utils import ishtmlvalid, iscssvalid, isjsvalid
 import json
 
@@ -59,3 +61,16 @@ def HTTPRedirect(url):
         window.location.href = '{url}';
         </script>
     """
+
+
+def rooms_wrapper(rendered_view,name,owner,id):
+    soup = BeautifulSoup(rendered_view,'html.parser')
+    title = soup.find('title')
+    title.string='Комната ' + id
+    h1=soup.new_tag("h1")
+    p=soup.new_tag("p")
+    h1.string=unquote(name)
+    p.string=owner
+    soup.append(h1)
+    soup.append(p)
+    return str(soup)

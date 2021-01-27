@@ -19,7 +19,7 @@ function check(url) {
             console.log(result)
             if(result.status==='success') {
                 $('.signin').remove()
-                $('header').append(`<h3>Вы вошли как ${result['user']}</h3>
+                $('header').append(`<h3>Вы вошли как ${decodeURI(result['user'])}</h3>
                     <a href="/rooms">Перейти на страницу с комнатами</a><br>
                     <a href="" onclick="logout()">Выйти</a>
 `)

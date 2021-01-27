@@ -1,6 +1,6 @@
-from database import StyleManagerDB, JSManagerDB
+from database import StyleManagerDB, JSManagerDB, RoomsManagerDB
 from urls import URLS
-
+from bs4 import BeautifulSoup
 
 def styles_urls_to_global_urls():
     db = StyleManagerDB()
@@ -20,3 +20,4 @@ def js_urls_to_global_urls():
     for url, server_path in urls:
         view = render_js(server_path)
         URLS[url] = view
+
