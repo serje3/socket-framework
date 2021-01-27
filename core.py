@@ -1,14 +1,10 @@
 import json
-import select
+
 import socket
 from translators import URLS, styles_urls_to_global_urls, js_urls_to_global_urls
 from settings import IP, PORT
 from urls import URLS_POST, ROOMS_RENDER
 from wrap import wrap_request
-
-INPUTS=[]
-OUTPUTS=[]
-requests={}
 
 def before_accept():
     from utils import templates_parser
@@ -95,20 +91,19 @@ def run():
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_socket.bind((IP, PORT))
     server_socket.listen(10)
-    # before_accept()
-    INPUTS.append(server_socket)
+    before_accept()
     print(f"HOST: {IP}:{PORT}")
 
-    # while True:
-    #     client_socket, addr = server_socket.accept()
-    #     request = client_socket.recv(1024)
-    #
-    #     # print(request.decode('utf-8'))
-    #
-    #     response = generate_response(request.decode('utf-8'))
-    #
-    #     client_socket.sendall(response)
-    #     client_socket.close()
+    while True:
+        client_socket, addr = server_socket.accept()
+        request = client_socket.recv(1024)
+
+        # print(request.decode('utf-8'))
+
+        response = generate_response(request.decode('utf-8'))
+
+        client_socket.sendall(response)
+        client_socket.close()
 
 if __name__ == '__main__':
     run()
