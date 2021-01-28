@@ -1,9 +1,13 @@
 $(document).ready(function () {
-    getRooms()
+    getRoomsAsync.then(()=>preloader_stop())
 })
 
 
-function getRooms() {
+const getRoomsAsync = new Promise( resolve => {
+    getRooms(resolve)
+})
+
+function getRooms(resolve) {
     $.ajax({
         url: '/rooms',
         type: "POST",
@@ -24,9 +28,11 @@ function getRooms() {
                     $('#rooms-list').append(room.html)
                 }
             }
+            resolve()
         },
         error: function(response) { // Данные не отправлены
             $('#rooms-list').html('Упс... что-то пошло не так');
+            resolve()
     	}
     })
 }

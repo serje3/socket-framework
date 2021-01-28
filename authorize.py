@@ -4,9 +4,7 @@ from wrap import render
 import secrets
 
 
-def index(request):
-    print(request)
-    return render('index.html')
+
 
 
 def login(request):

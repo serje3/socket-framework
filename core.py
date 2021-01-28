@@ -74,6 +74,7 @@ def generate_response(request):
         # print('BODY:\n'+body)
         if url in ('/register', '/login', '/logout'):
             Cookie = json.loads(body)['Cookie']
+            print('IPHONE url: '+url, 'Cookie',Cookie)
             headers = headers[:len(
                 headers) - 2] + '\r\nSet-Cookie:token=' + Cookie + '; Max-Age=2592000\n\n' \
                 if Cookie != 'none' else headers

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $("#btn").click(
-        function (){
+        function (e){
+
             sendAjaxForm('result_form','register_form','/register');
             return false
         }

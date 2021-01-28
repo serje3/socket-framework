@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#btn").click(
-        function (){
+        function (e){
 
             sendAjaxForm('result_form','auth_form','/login');
             return false

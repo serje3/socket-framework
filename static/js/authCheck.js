@@ -1,9 +1,19 @@
 $(document).ready(function () {
-    check('http://localhost:5000/authorized');
+    // check('http://localhost:5000/authorized').then(
+    //
+    // )
+    checkAuth('http://localhost:5000/authorized').then(()=>preloader_stop())
+
 })
 
 
-function check(url) {
+const checkAuth = url =>{
+    return new Promise(resolve =>  {
+        _check(url,resolve)
+})
+}
+
+function _check(url,resolve) {
     $.ajax({
         url: url,
         type: "POST",
@@ -24,9 +34,11 @@ function check(url) {
                     <a href="" onclick="logout()">Выйти</a>
 `)
             }
+            resolve()
         },
         error: function(response) { // Данные не отправлены
             console.log('Ошибка. Данные не отправлены.');
+            resolve()
     	}
 
     })
@@ -49,3 +61,5 @@ function logout(){
     	}
     })
 }
+
+

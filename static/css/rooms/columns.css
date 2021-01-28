@@ -1,0 +1,14 @@
+#chess-table{
+    display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+    margin-left:auto;
+	margin-right:auto;
+}
+
+#chess-table > .col {
+	-webkit-flex:revert;
+	flex:revert;
+
+}

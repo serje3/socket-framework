@@ -5,6 +5,11 @@ from wrap import render,rooms_wrapper
 from utils import login_required
 from database import RoomsManagerDB, AuthManagerDB
 
+
+def index(request):
+    print(request)
+    return render('index.html')
+
 @login_required
 def rooms(request):
     if request['method']=='POST':

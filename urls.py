@@ -1,7 +1,7 @@
 import authorize,views
 
 URLS = {
-    '/': authorize.index,
+    '/': views.index,
     '/login': authorize.login,
     '/register':authorize.register,
     '/rooms':views.rooms,
