@@ -18,7 +18,7 @@ var Tile = function (_React$Component) {
     _createClass(Tile, [{
         key: 'render',
         value: function render() {
-            return React.createElement('div', { key: this.props.index, id: this.props.index, className: 'tile', style: this.props.style });
+            return React.createElement('div', { id: this.props.index, className: 'tile', style: this.props.style });
         }
     }]);
 
@@ -56,52 +56,50 @@ var Column = function (_React$Component2) {
             if (this.props.index % 2 === 0) {
                 return React.createElement(
                     'div',
-                    { key: this.props.index,
-                        id: this.props.index,
+                    {
                         className: 'col',
                         style: {
                             height: this.height * 14,
                             width: this.width
                         } },
-                    React.createElement(Tile, { key: 0, index: 0, style: this.style(0) }),
-                    React.createElement(Tile, { key: 1, index: 1, style: this.style(1) }),
-                    React.createElement(Tile, { key: 2, index: 2, style: this.style(0) }),
-                    React.createElement(Tile, { key: 3, index: 3, style: this.style(1) }),
-                    React.createElement(Tile, { key: 4, index: 4, style: this.style(0) }),
-                    React.createElement(Tile, { key: 5, index: 5, style: this.style(1) }),
-                    React.createElement(Tile, { key: 6, index: 6, style: this.style(0) }),
-                    React.createElement(Tile, { key: 7, index: 7, style: this.style(1) }),
-                    React.createElement(Tile, { key: 8, index: 8, style: this.style(0) }),
-                    React.createElement(Tile, { key: 9, index: 9, style: this.style(1) }),
-                    React.createElement(Tile, { key: 10, index: 10, style: this.style(0) }),
-                    React.createElement(Tile, { key: 11, index: 11, style: this.style(1) }),
-                    React.createElement(Tile, { key: 12, index: 12, style: this.style(0) }),
-                    React.createElement(Tile, { key: 13, index: 13, style: this.style(1) })
+                    React.createElement(Tile, { key: 0, index: this.props.letter + '13', style: this.style(0) }),
+                    React.createElement(Tile, { key: 1, index: this.props.letter + '12', style: this.style(1) }),
+                    React.createElement(Tile, { key: 2, index: this.props.letter + '11', style: this.style(0) }),
+                    React.createElement(Tile, { key: 3, index: this.props.letter + '10', style: this.style(1) }),
+                    React.createElement(Tile, { key: 4, index: this.props.letter + '9', style: this.style(0) }),
+                    React.createElement(Tile, { key: 5, index: this.props.letter + '8', style: this.style(1) }),
+                    React.createElement(Tile, { key: 6, index: this.props.letter + '7', style: this.style(0) }),
+                    React.createElement(Tile, { key: 7, index: this.props.letter + '6', style: this.style(1) }),
+                    React.createElement(Tile, { key: 8, index: this.props.letter + '5', style: this.style(0) }),
+                    React.createElement(Tile, { key: 9, index: this.props.letter + '4', style: this.style(1) }),
+                    React.createElement(Tile, { key: 10, index: this.props.letter + '3', style: this.style(0) }),
+                    React.createElement(Tile, { key: 11, index: this.props.letter + '2', style: this.style(1) }),
+                    React.createElement(Tile, { key: 12, index: this.props.letter + '1', style: this.style(0) }),
+                    React.createElement(Tile, { key: 13, index: this.props.letter + '0', style: this.style(1) })
                 );
             } else {
                 return React.createElement(
                     'div',
-                    { key: this.props.index,
-                        id: this.props.index,
+                    {
                         className: 'col',
                         style: {
                             height: this.height * 14,
                             width: this.width
                         } },
-                    React.createElement(Tile, { key: 0, index: 0, style: this.style(1) }),
-                    React.createElement(Tile, { key: 1, index: 1, style: this.style(0) }),
-                    React.createElement(Tile, { key: 2, index: 2, style: this.style(1) }),
-                    React.createElement(Tile, { key: 3, index: 3, style: this.style(0) }),
-                    React.createElement(Tile, { key: 4, index: 4, style: this.style(1) }),
-                    React.createElement(Tile, { key: 5, index: 5, style: this.style(0) }),
-                    React.createElement(Tile, { key: 6, index: 6, style: this.style(1) }),
-                    React.createElement(Tile, { key: 7, index: 7, style: this.style(0) }),
-                    React.createElement(Tile, { key: 8, index: 8, style: this.style(1) }),
-                    React.createElement(Tile, { key: 9, index: 9, style: this.style(0) }),
-                    React.createElement(Tile, { key: 10, index: 10, style: this.style(1) }),
-                    React.createElement(Tile, { key: 11, index: 11, style: this.style(0) }),
-                    React.createElement(Tile, { key: 12, index: 12, style: this.style(1) }),
-                    React.createElement(Tile, { key: 13, index: 13, style: this.style(0) })
+                    React.createElement(Tile, { key: 0, index: this.props.letter + '13', style: this.style(1) }),
+                    React.createElement(Tile, { key: 1, index: this.props.letter + '12', style: this.style(0) }),
+                    React.createElement(Tile, { key: 2, index: this.props.letter + '11', style: this.style(1) }),
+                    React.createElement(Tile, { key: 3, index: this.props.letter + '10', style: this.style(0) }),
+                    React.createElement(Tile, { key: 4, index: this.props.letter + '9', style: this.style(1) }),
+                    React.createElement(Tile, { key: 5, index: this.props.letter + '8', style: this.style(0) }),
+                    React.createElement(Tile, { key: 6, index: this.props.letter + '7', style: this.style(1) }),
+                    React.createElement(Tile, { key: 7, index: this.props.letter + '6', style: this.style(0) }),
+                    React.createElement(Tile, { key: 8, index: this.props.letter + '5', style: this.style(1) }),
+                    React.createElement(Tile, { key: 9, index: this.props.letter + '4', style: this.style(0) }),
+                    React.createElement(Tile, { key: 10, index: this.props.letter + '3', style: this.style(1) }),
+                    React.createElement(Tile, { key: 11, index: this.props.letter + '2', style: this.style(0) }),
+                    React.createElement(Tile, { key: 12, index: this.props.letter + '1', style: this.style(1) }),
+                    React.createElement(Tile, { key: 13, index: this.props.letter + '0', style: this.style(0) })
                 );
             }
         }

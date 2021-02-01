@@ -47,20 +47,20 @@ var ChessTable = function (_React$Component) {
             width: size + 'px',
             height: size + 'px'
           } },
-        React.createElement(Column, { key: 0, index: 0, size: tileSize }),
-        React.createElement(Column, { key: 1, index: 1, size: tileSize }),
-        React.createElement(Column, { key: 2, index: 2, size: tileSize }),
-        React.createElement(Column, { key: 3, index: 3, size: tileSize }),
-        React.createElement(Column, { key: 4, index: 4, size: tileSize }),
-        React.createElement(Column, { key: 5, index: 5, size: tileSize }),
-        React.createElement(Column, { key: 6, index: 6, size: tileSize }),
-        React.createElement(Column, { key: 7, index: 7, size: tileSize }),
-        React.createElement(Column, { key: 8, index: 8, size: tileSize }),
-        React.createElement(Column, { key: 9, index: 9, size: tileSize }),
-        React.createElement(Column, { key: 10, index: 10, size: tileSize }),
-        React.createElement(Column, { key: 11, index: 11, size: tileSize }),
-        React.createElement(Column, { key: 12, index: 12, size: tileSize }),
-        React.createElement(Column, { key: 13, index: 13, size: tileSize })
+        React.createElement(Column, { key: 0, index: 0, letter: 'a', size: tileSize }),
+        React.createElement(Column, { key: 1, index: 1, letter: 'b', size: tileSize }),
+        React.createElement(Column, { key: 2, index: 2, letter: 'c', size: tileSize }),
+        React.createElement(Column, { key: 3, index: 3, letter: 'd', size: tileSize }),
+        React.createElement(Column, { key: 4, index: 4, letter: 'e', size: tileSize }),
+        React.createElement(Column, { key: 5, index: 5, letter: 'f', size: tileSize }),
+        React.createElement(Column, { key: 6, index: 6, letter: 'g', size: tileSize }),
+        React.createElement(Column, { key: 7, index: 7, letter: 'h', size: tileSize }),
+        React.createElement(Column, { key: 8, index: 8, letter: 'i', size: tileSize }),
+        React.createElement(Column, { key: 9, index: 9, letter: 'j', size: tileSize }),
+        React.createElement(Column, { key: 10, index: 10, letter: 'k', size: tileSize }),
+        React.createElement(Column, { key: 11, index: 11, letter: 'l', size: tileSize }),
+        React.createElement(Column, { key: 12, index: 12, letter: 'm', size: tileSize }),
+        React.createElement(Column, { key: 13, index: 13, letter: 'n', size: tileSize })
       );
     }
   }]);

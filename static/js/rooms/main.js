@@ -22,7 +22,6 @@ function getRooms(resolve) {
             const result = $.parseJSON(response)
 
             if (result.status === 'success') {
-                console.log(result.rooms,result.rooms.length)
                 for (let i = 0; i < result.rooms.length; i++) {
                     const room = new Room(decodeURI(result.rooms[i][0]),result.rooms[i][1],result.rooms[i][2])
                     $('#rooms-list').append(room.html)
@@ -50,7 +49,6 @@ function addRoom(name) {
             'Content-Type':'charset=utf-8',
         },
         success : function (response) {
-            console.log('успех')
             window.location.href='/rooms'
             },
         error: function(response) { // Данные не отправлены

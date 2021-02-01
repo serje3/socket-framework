@@ -5,7 +5,7 @@ const tiles_2=columns[2].querySelectorAll('.tile')
 const tiles_11=columns[11].querySelectorAll('.tile')
 const tiles_12=columns[12].querySelectorAll('.tile')
 const tiles_13=columns[13].querySelectorAll('.tile')
-
+const tiles_all=document.querySelectorAll('#rot #chess-table .col .tile')
 
 const tiles=[
 
@@ -26,6 +26,13 @@ const tiles=[
 
 tiles.forEach(value => {
     value[0].style.opacity=0
+    value[0].type='disabled'
     value[1].style.opacity=0
+    value[1].type='disabled'
     value[2].style.opacity=0
+    value[2].type='disabled'
 })
+
+function getAllTiles() {
+    return tiles_all
+}
