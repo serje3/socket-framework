@@ -23,6 +23,7 @@ class ChessPiece{
 
      // this.setDisabledTiles()
      this.setPawnsRed()
+     this.setRooksRed()
  }
 
 
@@ -68,11 +69,8 @@ class ChessPiece{
 
 
      setPawns(color){
-        let className=''
-        if (color==='red')
-            className='red'
          const src="https://i.ibb.co/kMPF4qZ/w512h5121390849537pawn512.png"
-         const img = `<img src="${src}" alt="chess_piece" class='pawn_${className}' style="height: inherit;width: inherit;" draggable="true" onclick="showHints(this,'pawn')">`
+         const img = `<img src="${src}" alt="chess_piece" class='pawn_${color}' style="height: inherit;width: inherit;" draggable="true" onclick="showHints(this,'pawn')">`
          this.chesstable.d.d1.insertAdjacentHTML("afterbegin", img)
          this.chesstable.e.e1.insertAdjacentHTML("afterbegin", img)
          this.chesstable.f.f1.insertAdjacentHTML("afterbegin", img)
@@ -83,6 +81,12 @@ class ChessPiece{
          this.chesstable.k.k1.insertAdjacentHTML("afterbegin", img)
      }
 
+     setRooks(color){
+        const src='https://i.ibb.co/5MXT57v/kek-2.png'
+        const img = `<img src="${src}" alt="chess_piece" class='rook_${color}' style="height: inherit;width: inherit;" draggable="true" onclick="showHints(this,'rook')">`
+        this.chesstable.d.d0.insertAdjacentHTML("afterbegin", img)
+        this.chesstable.k.k0.insertAdjacentHTML("afterbegin", img)
+     }
 
      setPawnsRed(){
         this.setPawns('red')
@@ -92,8 +96,15 @@ class ChessPiece{
         this.setPawns('blue')
      }
 
+     setRooksRed(){
+        this.setRooks('red')
+     }
 
-//ondragenter="dragEnter(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)"
+     setRooksBlue(){
+        this.setRooks('blue')
+     }
+
+
 }
 
 
@@ -121,6 +132,8 @@ function showHints(piece,type){
 
     if (type.startsWith('pawn')){
         showPawnMoves(tile,img)
+    } else if(type.startsWith('rook')){
+        showRookMoves(tile,img)
     }
 
 }
@@ -129,6 +142,10 @@ function deleteHints() {
     let othersHints = document.getElementsByClassName('tile_hint')
     while (othersHints[0]){
         othersHints[0].remove()
+    }
+    let otherHintsPieces = document.getElementsByTagName('img')
+    for (let i = 0; i<otherHintsPieces.length;i++){
+        otherHintsPieces[i].style.backgroundColor=''
     }
 }
 
@@ -178,9 +195,8 @@ function dragOver(event) {
 function drop(event) {
     const toElement = event.toElement
     let fromElement = status.fromElement
-    if (toElement.className==='tile_hint'){
+    if (toElement.className==='tile_hint' || toElement.style.backgroundColor==='darkred'){
         toElement.remove()
-        console.log(event.path[1])
         event.path[1].insertAdjacentHTML('afterbegin',fromElement.outerHTML)
         fromElement.remove()
         deleteHints()
