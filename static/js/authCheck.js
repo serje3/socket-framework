@@ -2,18 +2,20 @@ $(document).ready(function () {
     // check('http://localhost:5000/authorized').then(
     //
     // )
-    checkAuth('http://localhost:5000/authorized').then(()=>preloader_stop())
+    checkAuth('http://localhost:5000/authorized')
+        .then(()=>preloader_stop())
+        .catch((error)=>preloader_stop())
 
 })
 
 
 const checkAuth = url =>{
-    return new Promise(resolve =>  {
-        _check(url,resolve)
+    return new Promise((resolve,reject) =>  {
+        _check(url,resolve,reject)
 })
 }
 
-function _check(url,resolve) {
+function _check(url,resolve,reject) {
     $.ajax({
         url: url,
         type: "POST",
@@ -26,7 +28,7 @@ function _check(url,resolve) {
         },
         success : function (response) {
             result = $.parseJSON(response);
-            console.log(result)
+
             if(result.status==='success') {
                 $('.signin').remove()
                 $('header').append(`<h3>Вы вошли как ${decodeURI(result['user'])}</h3>
@@ -38,7 +40,7 @@ function _check(url,resolve) {
         },
         error: function(response) { // Данные не отправлены
             console.log('Ошибка. Данные не отправлены.');
-            resolve()
+            reject('Произошла ошибка')
     	}
 
     })

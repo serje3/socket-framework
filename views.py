@@ -7,7 +7,7 @@ from database import RoomsManagerDB, AuthManagerDB
 
 
 def index(request):
-    print(request)
+
     return render('index.html')
 
 @login_required
@@ -19,6 +19,7 @@ def rooms(request):
             return json.dumps({
                 'status':'success',
                 'rooms':rooms,
+                'user':request['user']
             })
         if request['data']['query']=='add':
             db2=AuthManagerDB()
@@ -35,12 +36,12 @@ def room(request,id):
     if user is None:
         return HTTP405()
 
-    content = render('users/room.html')
+    content = render('rooms/room.html')
     db = RoomsManagerDB()
     room = db.select_id(id)
     if not room:
         return HTTP404()
-    #print(room)
+
     room = room[0]
     name = room[0]
     owner = room[1]

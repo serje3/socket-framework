@@ -27,7 +27,7 @@ class Column extends React.Component{
         return {
             backgroundColor: _color,
             height: this.height,
-            width: this.width
+            width: 'inherit'
         }
     }
 
