@@ -14,31 +14,15 @@ var ChessTable = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ChessTable.__proto__ || Object.getPrototypeOf(ChessTable)).call(this, props));
 
-    _this.updateDimensions = function () {
-      _this.setState({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    _this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    };
+    _this.height = window.innerHeight;
+    _this.width = window.innerWidth;
     return _this;
   }
 
   _createClass(ChessTable, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      window.addEventListener('resize', this.updateDimensions);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      window.removeEventListener('resize', this.updateDimensions);
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var size = Math.min(this.state.width - 30, this.state.height - 30);
+      var size = Math.min(this.width - 30, this.height - 30);
 
       var tileSize = Math.trunc(size / 14);
       return React.createElement(

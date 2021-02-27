@@ -1,30 +1,12 @@
 class ChessTable extends React.Component {
   constructor(props) {
     super(props);
-
-
-
-    this.state={
-      width: window.innerWidth,
-      height: window.innerHeight,
-    }
+    this.height = window.innerHeight
+    this.width = window.innerWidth
   }
-
-
-  updateDimensions = () => {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  };
-
-  componentDidMount() {
-    window.addEventListener('resize', this.updateDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
-  }
-
 
   render() {
-    const size = Math.min(this.state.width-30,this.state.height-30)
+    const size = Math.min(this.width-30,this.height-30)
 
     const tileSize = Math.trunc(size/14)
     return (

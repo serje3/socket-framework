@@ -34,5 +34,5 @@ tiles.forEach(value => {
 })
 
 function getAllTiles() {
-    return tiles_all
+    return document.getElementsByClassName('tile')
 }

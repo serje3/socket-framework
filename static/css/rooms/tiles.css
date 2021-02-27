@@ -1,4 +1,40 @@
 .tile > img {
     height: inherit;
     width: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-filter: drop-shadow(5px 5px 5px #000);
+    filter: drop-shadow(2px 2px 5px #000) brightness(0.9) sepia(0.1);
+
+
 }
+
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+
+.tile_hint{
+    cursor:default;
+
+}
+
+
+
+
+
+
+.pawn_red .rook_red .bishop_red .queen_red {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+

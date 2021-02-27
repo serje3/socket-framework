@@ -117,5 +117,6 @@ def login_required(view):
         if user is None:
             return HTTP405()
         else:
+            request['user']=user
             return view(request)
     return wrapper
